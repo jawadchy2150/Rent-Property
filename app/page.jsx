@@ -1,11 +1,19 @@
 import React from 'react'
+import Hero from '@/components/Hero'
+import InfoBoxes from '@/components/InfoBoxes'
+import HomePageProperties from '@/components/HomePageProperties'
+import connectDB from '@/config/database'
 
-const page = () => {
+const page = async () => {
+  await connectDB();
   return (
     <div>
-      Homepage
+      <Hero/>
+      <InfoBoxes/>
+      <HomePageProperties/>
     </div>
   )
 }
 
 export default page
+  

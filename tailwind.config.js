@@ -11,6 +11,9 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      gridTemplateColumns: {
+        '70/30': '70% 28%'
+      }
     },
   },
   plugins: [],
