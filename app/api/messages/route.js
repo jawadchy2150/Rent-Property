@@ -4,6 +4,34 @@ import { getSessionUser } from "@/utils/getSessionUser";
 
 export const dynamic = 'force-dynamic'
 
+// Get /api/messages
+
+export const GET = async () => {
+    try {
+        await connectDB();
+
+        const sessionUser = await getSessionUser();
+
+        if(!sessionUser || !sessionUser.user) {
+            return new Response(JSON.stringify('User ID is required'), { status: 401 })
+        }
+
+        const { userId } = sessionUser;
+
+        const messages = await Message.find({ recipient: userId})
+        .populate('sender', 'username')
+        .populate('property', 'name')
+
+        return new Response(JSON.stringify(messages), {status: 200});
+
+
+    } catch (error) {
+        console.log(error);
+        return new Response(JSON.stringify( { message: 'Something went wrong'}), {status: 500})
+    }
+}
+
+
 // Post /api/messages
 
 export const POST = async (request) => {
@@ -18,7 +46,7 @@ export const POST = async (request) => {
             return new Response(JSON.stringify({message: 'You must be logged in to send a message'}), { status: 401 })
         }
 
-        const {user} = sessionUser;
+        const {user} = sessionUser; 
 
         if(user.id === recipient) {
             return new Response(JSON.stringify({ message: 'Can not send a message to yourself'}), {status: 400});
