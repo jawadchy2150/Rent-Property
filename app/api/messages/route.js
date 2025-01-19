@@ -26,7 +26,7 @@ export const GET = async () => {
         const unReadMessages = await Message.find({ recipient: userId, read: false})
         .sort({createdAt: -1}) // sort unread messages in asc order
         .populate('sender', 'username')
-        .populate('property', 'name')
+        .populate('property', 'name') 
 
         const messages = [...readMessages, ...unReadMessages];
 
