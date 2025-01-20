@@ -5,9 +5,9 @@ import Link from 'next/link'
 import { fetchProperties } from '@/utils/requests'
 
 const HomePageProperties = async () => {
-  const properties = await fetchProperties();
+  const data = await fetchProperties();
   
-    const recentProperties = properties
+    const recentProperties = data.properties
     .sort(() => Math.random() - Math.random())
     .slice(0,3)
 
