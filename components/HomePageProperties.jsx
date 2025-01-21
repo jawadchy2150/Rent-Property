@@ -1,15 +1,12 @@
-import React from 'react'
-import properties from '@/properties.json'
 import PropertyCard from '@/components/PropertyCard'
 import Link from 'next/link'
 import { fetchProperties } from '@/utils/requests'
 
-const HomePageProperties = async () => {
-  const data = await fetchProperties();
-  
-    const recentProperties = data.properties
+const HomePageProperties = ({ properties = [] }) => {
+  // Shuffle and slice properties to get 3 random ones
+  const recentProperties = properties
     .sort(() => Math.random() - Math.random())
-    .slice(0,3)
+    .slice(0, 3);
 
   return (
     <>
